@@ -1,0 +1,381 @@
+[index.html](https://github.com/user-attachments/files/24311394/index.html)
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eatqon - Aesthetic Snacks</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Meta/SEO -->
+    <meta name="description" content="Eatqon - Snack kekinian dengan rasa premium. Pre-order sekarang!">
+</head>
+<body>
+
+    <!-- Notification Banner (PO Status) -->
+    <div id="po-banner" class="po-banner open">
+        <p><span class="status-icon">●</span> <span id="po-text">PRE-ORDER IS OPEN</span></p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/logo.jpg" alt="Eatqon Logo">
+            <span>eatQon</span>
+        </div>
+        <div class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="nav-links">
+            <a href="#menu">Menu</a>
+            <a href="#order">Order</a>
+            <button id="toggle-po-btn" class="dev-btn" title="Toggle PO Status (Dev)">⚠ PO Toggle</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero fade-in-up">
+        <div class="hero-content">
+            <h1>eatQon<br><span class="highlight">Rasa yang nikmat dimulai dengan harga 20k aja</span></h1>
+            <p>Rasakan kelezatan premium di setiap gigitan. Snack kekinian yang pas untuk setiap momen spesialmu.</p>
+            <a href="#menu" class="cta-btn">Pesan Sekarang</a>
+        </div>
+    </header>
+
+    <!-- Aesthetic Marquee Stripe -->
+    <div class="aesthetic-strip">
+        <div class="marquee-content">
+            <span>PEDAS NAMPOL</span> 
+            <span>•</span> 
+            <span>KRIUKNYA JUARA</span> 
+            <span>•</span> 
+            <span>BUMBU MELIMPAH</span> 
+            <span>•</span> 
+            <span>BIKIN NAGIH</span>
+            <span>•</span>
+            <span>BEST SELLER</span>
+            <span>•</span> 
+            <span>HOMEMADE SNACKS</span> 
+            <span>•</span> 
+            <span>FRESHLY MADE</span> 
+        </div>
+    </div>
+
+    <!-- Proof / Real Testimonial Images Section -->
+    <section class="proof-section fade-in-up">
+        <div class="section-header">
+            <h2>Real Testimonials</h2>
+        </div>
+        <div class="proof-grid">
+            <img src="assets/testi_1.jpg" alt="Testimoni 1" class="proof-img">
+            <img src="assets/testi_2.jpg" alt="Testimoni 2" class="proof-img">
+            <img src="assets/testi_3.jpg" alt="Testimoni 3" class="proof-img">
+            <img src="assets/testi_4.jpg" alt="Testimoni 4" class="proof-img">
+            <img src="assets/testi_5.jpg" alt="Testimoni 5" class="proof-img">
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="section-header">
+            <h2>Our Menu</h2>
+            <p>Pilih snack favoritmu sekarang!</p>
+        </div>
+        
+        <div class="product-grid">
+            <!-- Product 1 -->
+            <div class="product-card" data-id="basreng">
+                <div class="card-image-placeholder">
+                    <span>IMAGE SPACE</span>
+                </div>
+                <h3>Basreng Daun Jeruk</h3>
+                <p class="product-tagline">"MAU PEDAS NYA BISA DI ATUR? BISA"</p>
+                
+                <div class="variant-selector">
+                    <label>Pilih Ukuran:</label>
+                    <select class="variant-select">
+                        <option value="25000" data-variant="1/4 KG">1/4 KG - IDR 25k</option>
+                        <option value="50000" data-variant="1/2 KG">1/2 KG - IDR 50k</option>
+                        <option value="92000" data-variant="1 KG">1 KG - IDR 92k</option>
+                    </select>
+                </div>
+
+                <div class="price-action">
+                    <span class="display-price">IDR 25k</span>
+                    <div class="quantity-control" data-name="Basreng Daun Jeruk">
+                        <button class="add-to-cart-btn">TAMBAH +</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card" data-id="singkong">
+                <div class="card-image-placeholder">
+                    <span>IMAGE SPACE</span>
+                </div>
+                <h3>Singkong Daun Jeruk</h3>
+                <p class="product-tagline">"SINGKONG PILIHAN YANG BISA BUAT KAMU KRIUK KRIUK"</p>
+                
+                <div class="variant-selector">
+                    <label>Pilih Ukuran:</label>
+                    <select class="variant-select">
+                        <option value="25000" data-variant="1/4 KG">1/4 KG - IDR 25k</option>
+                        <option value="45000" data-variant="1/2 KG">1/2 KG - IDR 45k</option>
+                        <option value="90000" data-variant="1 KG">1 KG - IDR 90k</option>
+                    </select>
+                </div>
+
+                <div class="price-action">
+                    <span class="display-price">IDR 25k</span>
+                    <div class="quantity-control" data-name="Singkong Daun Jeruk">
+                        <button class="add-to-cart-btn">TAMBAH +</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card" data-id="jamur">
+                 <div class="card-image-container">
+                    <img src="assets/jamur_crispy.jpg" alt="Jamur Crispy Pedas Nori" class="product-image">
+                </div>
+                <h3>Jamur Crispy Pedas Nori</h3>
+                <p class="product-tagline">"JAMUR CRISPY PREMIUM YANG DI BALUR TEPUNG RENYAH"</p>
+
+                <div class="variant-selector">
+                    <label>Pilih Ukuran:</label>
+                    <select class="variant-select">
+                        <option value="22000" data-variant="150 GR">150 GR - IDR 22k (HEMAT)</option>
+                        <option value="35000" data-variant="1/4 KG">1/4 KG - IDR 35k</option>
+                        <option value="65000" data-variant="1/2 KG">1/2 KG - IDR 65k</option>
+                        <option value="125000" data-variant="1 KG">1 KG - IDR 125k</option>
+                    </select>
+                </div>
+
+                <div class="price-action">
+                    <span class="display-price">IDR 22k</span>
+                    <div class="quantity-control" data-name="Jamur Crispy">
+                         <button class="add-to-cart-btn">TAMBAH +</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card" data-id="kentang">
+                 <div class="card-image-container">
+                    <img src="assets/keripik_kentang.jpg" alt="Keripik Kentang Pedas Nori" class="product-image">
+                </div>
+                <h3>Keripik Kentang Pedas Nori</h3>
+                <p class="product-tagline">"KENTANG PILIHAN BUAT KAMU YANG SUKA ASIK KRIUK PEDES NIH"</p>
+
+                <div class="variant-selector">
+                    <label>Pilih Ukuran:</label>
+                    <select class="variant-select">
+                        <option value="22000" data-variant="130 GR">130 GR - IDR 22k (HEMAT)</option>
+                        <option value="35000" data-variant="1/4 KG">1/4 KG - IDR 35k</option>
+                        <option value="70000" data-variant="1/2 KG">1/2 KG - IDR 70k</option>
+                        <option value="135000" data-variant="1 KG">1 KG - IDR 135k</option>
+                    </select>
+                </div>
+
+                <div class="price-action">
+                    <span class="display-price">IDR 22k</span>
+                    <div class="quantity-control" data-name="Keripik Kentang">
+                        <button class="add-to-cart-btn">TAMBAH +</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card" data-id="pisang">
+                 <div class="card-image-container">
+                    <img src="assets/keripik_pisang.jpg" alt="Keripik Pisang Coklat" class="product-image">
+                </div>
+                <h3>Keripik Pisang Coklat</h3>
+                <p class="product-tagline">"INII BEST SELLER UNTUK KAMU YANG SUKA MANIS"</p>
+
+                <div class="variant-selector">
+                    <label>Pilih Ukuran:</label>
+                    <select class="variant-select">
+                        <option value="25000" data-variant="1/4 KG">1/4 KG - IDR 25k</option>
+                        <option value="45000" data-variant="1/2 KG">1/2 KG - IDR 45k</option>
+                        <option value="85000" data-variant="1 KG">1 KG - IDR 85k</option>
+                    </select>
+                </div>
+
+                <div class="price-action">
+                    <span class="display-price">IDR 25k</span>
+                    <div class="quantity-control" data-name="Keripik Pisang Coklat">
+                        <button class="add-to-cart-btn">TAMBAH +</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card" data-id="bawang">
+                 <div class="card-image-container">
+                    <img src="assets/bawang_goreng.jpg" alt="Bawang Goreng Terasi/Teri" class="product-image">
+                </div>
+                <h3>Bawang Goreng Terasi/Teri</h3>
+                <p class="product-tagline">"TOPING BUAT KAMU YANG SUKA BAWANG GORENG, INI YANG BIKIN LENGKAP MAKAN KAMU"</p>
+
+                <div class="variant-selector">
+                    <label>Pilih Ukuran:</label>
+                    <select class="variant-select">
+                        <option value="25000" data-variant="80 GR">80 GR - IDR 25k (HEMAT)</option>
+                        <option value="35000" data-variant="125 GR">125 GR - IDR 35k</option>
+                        <option value="67000" data-variant="1/4 KG">1/4 KG - IDR 67k</option>
+                        <option value="130000" data-variant="1/2 KG">1/2 KG - IDR 130k</option>
+                    </select>
+                </div>
+
+                <div class="price-action">
+                    <span class="display-price">IDR 25k</span>
+                    <div class="quantity-control" data-name="Bawang Goreng">
+                        <button class="add-to-cart-btn">TAMBAH +</button>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Testimonials / Kata Mereka -->
+    <section class="testimonials-section fade-in-up">
+        <div class="section-header">
+            <h2>Apa kata mereka tentang Eatqon?</h2>
+        </div>
+        <div class="testi-grid">
+            <div class="testi-card">
+                <p class="testi-text">"Rasanya mahal banget padahal cuma 20k! Coklatnya gak main-main."</p>
+                <p class="testi-author">- Rina, Jakarta</p>
+            </div>
+            <div class="testi-card">
+                <p class="testi-text">"Packaging estetik, rasa enak. Cocok buat gift ke temen."</p>
+                <p class="testi-author">- Dinda, Bandung</p>
+            </div>
+            <div class="testi-card">
+                <p class="testi-text">"Nutty caramel-nya juara. Legit banget!"</p>
+                <p class="testi-author">- Sarah, Surabaya</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order / Payment Section -->
+    <section id="order" class="order-section fade-in-up">
+        <div class="section-header">
+            <h2>Checkout</h2>
+            <p>Lengkapi datamu untuk pengiriman yang aman.</p>
+        </div>
+        <div class="order-container">
+            <!-- Left: Receipt Style Summary -->
+            <div class="order-panel receipt-panel">
+                <div class="receipt-header">
+                    <h3>YOUR ORDER</h3>
+                    <span class="date">REF: EATQ-001</span>
+                </div>
+                <div class="receipt-body">
+                    <div id="cart-items">
+                        <p class="empty-msg">Keranjang masih kosong.</p>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="total-row">
+                        <span>TOTAL</span>
+                        <span id="grand-total" class="total-price">IDR 0</span>
+                    </div>
+                </div>
+                
+                <div class="payment-box">
+                    <p class="pay-label">PAYMENT METHOD</p>
+                    <div class="bank-card">
+                        <div class="bank-logo">BCA</div>
+                        <div class="bank-details">
+                            <span class="acc-num">123 456 7890</span>
+                            <span class="acc-name">Eatqon Official</span>
+                        </div>
+                        <button class="copy-icon" onclick="copyRek()" title="Copy">❐</button>
+                    </div>
+                    <p class="pay-instr">Silakan transfer sesuai total dan upload bukti via WhatsApp nanti.</p>
+                </div>
+            </div>
+
+            <!-- Right: Minimalist Form -->
+            <div class="order-panel form-panel">
+                <h3>Shipping Details</h3>
+                <form id="orderForm">
+                    <div class="input-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" required placeholder="ex: Novry Amalia">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="phone">WhatsApp</label>
+                        <input type="tel" id="phone" required placeholder="ex: 08123456789">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="address">Alamat Pengiriman</label>
+                        <textarea id="address" rows="3" required placeholder="Jalan, Kelurahan, Kecamatan..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email (Opsional)</label>
+                        <input type="email" id="email" placeholder="email@example.com">
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span>Proceed to WhatsApp</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                        <p class="secure-note">🔒 Data Anda aman & terenkripsi via WhatsApp</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#2D1B15" fill-opacity="1" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+    <footer class="main-footer">
+        <div class="footer-brand-centered">
+            <div class="logo-footer-large">
+                <img src="assets/logo.jpg" alt="Eatqon">
+            </div>
+            <h2>eatQon</h2>
+            <p class="tagline-footer">Small Batch • Handcrafted • Delicious</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-icon type-ig" title="Instagram">IG</a>
+                <a href="#" class="social-icon type-wa" title="WhatsApp">WA</a>
+                <a href="#" class="social-icon type-tt" title="TikTok">TT</a>
+                <a href="#" class="social-icon type-email" title="Email">✉</a>
+            </div>
+
+            <div class="footer-bottom-centered">
+                <p>Jl. Kenangan Manis No. 20, Jakarta Selatan</p>
+                <p class="made-with-love">Dibuat dengan cinta untuk harimu yang manis <span class="heart">❤</span></p>
+                <p class="copyright">&copy; 2025 Eatqon Official.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Help & WA -->
+    <a href="#" class="help-center-fab" title="Help Center">
+        🎧
+    </a>
+
+    <a href="https://wa.me/6281234567890" target="_blank" class="floating-wa" title="Chat di WhatsApp">
+        💬
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
