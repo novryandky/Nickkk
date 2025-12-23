@@ -1,0 +1,323 @@
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- Scroll Reveal Animation ---
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    const animatedElements = document.querySelectorAll('.fade-in-up, .product-card');
+    animatedElements.forEach(el => {
+        el.classList.add('fade-in-up'); // Ensure class is present
+        observer.observe(el);
+    });
+
+    // --- State ---
+    const cart = {}; // { "Item Name": { price: 20000, qty: 0 } }
+    let isPOOpen = true; // Default Open
+
+    // --- Elements ---
+    const poBanner = document.getElementById('po-banner');
+    const poText = document.getElementById('po-text');
+    const togglePoBtn = document.getElementById('toggle-po-btn');
+    const qtyControls = document.querySelectorAll('.quantity-control');
+    const cartItemsDiv = document.getElementById('cart-items');
+    const grandTotalSpan = document.getElementById('grand-total');
+    const orderForm = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // --- Format Currency ---
+    const formatIDR = (num) => {
+        return 'IDR ' + num.toLocaleString('id-ID');
+    };
+
+    // --- PO Toggle Logic ---
+    const updatePOStatus = () => {
+        if (isPOOpen) {
+            poBanner.classList.remove('closed');
+            poBanner.classList.add('open');
+            poText.textContent = "PRE-ORDER IS OPEN!";
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "Kirim Pesanan via WhatsApp";
+            enableQtyControls(true);
+        } else {
+            poBanner.classList.remove('open');
+            poBanner.classList.add('closed');
+            poText.textContent = "PRE-ORDER IS CLOSED";
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = "PO Sedang Tutup";
+            enableQtyControls(false);
+        }
+    };
+
+    const enableQtyControls = (enable) => {
+        qtyControls.forEach(ctrl => {
+            if (enable) {
+                ctrl.classList.remove('disabled');
+            } else {
+                ctrl.classList.add('disabled');
+            }
+        });
+    };
+
+    togglePoBtn.addEventListener('click', () => {
+        isPOOpen = !isPOOpen;
+        updatePOStatus();
+    });
+
+    // --- Hamburger Menu Logic ---
+    const hamburger = document.getElementById('hamburger-btn');
+    const navLinks = document.getElementById('nav-links');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    }
+
+    // --- Cart Logic (Multi-Variant) ---
+    // Handle Variant Selection (Price Update)
+    document.querySelectorAll('.product-card').forEach(card => {
+        const select = card.querySelector('.variant-select');
+        const priceDisplay = card.querySelector('.display-price');
+        
+        // Initial price set
+        const updatePrice = () => {
+             const price = parseInt(select.value);
+             priceDisplay.textContent = formatIDR(price); // Simplified display
+        };
+
+        select.addEventListener('change', updatePrice);
+    });
+
+    // Handle Add to Cart
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            if (!isPOOpen) {
+                alert("Maaf, Pre-Order sedang tutup.");
+                return;
+            }
+
+            const card = e.target.closest('.product-card');
+            const name = card.querySelector('h3').innerText;
+            const select = card.querySelector('.variant-select');
+            
+            const selectedOption = select.options[select.selectedIndex];
+            const variantPrice = parseInt(select.value);
+            const variantName = selectedOption.dataset.variant;
+            
+            // Unique Key: "Name - Variant"
+            const uniqueItemName = `${name} (${variantName})`;
+
+            if (!cart[uniqueItemName]) {
+                cart[uniqueItemName] = { price: variantPrice, qty: 0 };
+            }
+            
+            cart[uniqueItemName].qty++;
+            updateCartUI();
+            
+            // Tiny feedback
+            const originalText = e.target.innerText;
+            e.target.innerText = "✓ ADDED";
+            setTimeout(() => e.target.innerText = originalText, 1000);
+        });
+    });
+
+    // Update Cart UI
+    const updateCartUI = () => {
+        cartItemsDiv.innerHTML = '';
+        let total = 0;
+        let hasItems = false;
+
+        for (const [name, item] of Object.entries(cart)) {
+            if (item.qty > 0) {
+                hasItems = true;
+                const subtotal = item.qty * item.price;
+                total += subtotal;
+
+                const itemRow = document.createElement('div');
+                itemRow.className = 'cart-item-row';
+                itemRow.style.display = 'flex';
+                itemRow.style.justifyContent = 'space-between';
+                itemRow.style.alignItems = 'center'; // Center vert
+                itemRow.style.marginBottom = '8px';
+                itemRow.style.fontSize = '0.9rem';
+                
+                itemRow.innerHTML = `
+                    <div style="flex: 1;">
+                        <span style="font-weight: 600; display:block;">${name}</span>
+                        <span style="font-size: 0.8em; color: #666;">${item.qty} x ${formatIDR(item.price)}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                         <span style="font-weight: bold;">${formatIDR(subtotal)}</span>
+                         <button class="remove-item-btn" data-key="${name}" style="background:#ff5252; color:white; border:none; border-radius:4px; width:24px; height:24px; cursor:pointer;">-</button>
+                    </div>
+                `;
+                cartItemsDiv.appendChild(itemRow);
+            }
+        }
+
+        // Add Listeners for Remove Buttons
+        document.querySelectorAll('.remove-item-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const key = e.target.dataset.key;
+                if (cart[key] && cart[key].qty > 0) {
+                    cart[key].qty--;
+                    if (cart[key].qty === 0) delete cart[key];
+                    updateCartUI();
+                }
+            });
+        });
+
+        if (!hasItems) {
+            cartItemsDiv.innerHTML = '<p class="empty-msg">Keranjang masih kosong.</p>';
+        }
+
+        grandTotalSpan.textContent = formatIDR(total);
+        return total;
+    };
+
+    // --- Form Submission (WhatsApp) ---
+    orderForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const total = updateCartUI(); // Get latest total
+        if (total === 0) {
+            alert("Harap pilih minimal satu menu!");
+            return;
+        }
+
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+        const email = document.getElementById('email').value;
+
+        let message = `*HALO EATQON, SAYA MAU ORDER!*%0A%0A`;
+        message += `*Nama*: ${name}%0A`;
+        message += `*No HP*: ${phone}%0A`;
+        message += `*Alamat*: ${address}%0A`;
+        // message += `*Email*: ${email}%0A%0A`; // Email optional to show
+        
+        message += `*PESANAN*: %0A`;
+        for (const [itemName, item] of Object.entries(cart)) {
+            if (item.qty > 0) {
+                message += `- ${itemName} (${item.qty}x) : ${formatIDR(item.qty * item.price)}%0A`;
+            }
+        }
+        
+        message += `%0A*TOTAL TRANSFER*: ${formatIDR(total)}%0A`;
+        message += `%0A Mohon info selanjutnya untuk pembayaran. Terima kasih!`;
+
+        // Redirect to WhatsApp (using a placeholder number or asking user to add it)
+        // Since no number provided, I'll use a dummy placeholder or generic API link
+        // Replace 6281234567890 with actual admin number
+        const adminNumber = "6281234567890"; 
+        const waLink = `https://wa.me/${adminNumber}?text=${message}`;
+
+        window.open(waLink, '_blank');
+    });
+
+    // --- Copy Rekening Utility ---
+    window.copyRek = () => {
+        const rek = "1234567890"; // Matching the HTML
+        navigator.clipboard.writeText(rek).then(() => {
+            alert("Nomor rekening berhasil disalin!");
+        });
+    };
+
+    // --- Smooth Scroll with "Delay/Animation" Feel ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            // Close mobile menu if open
+            if (navLinks && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') {
+                // Feedback for placeholder links
+                if (this.classList.contains('social-icon') || this.classList.contains('help-center-fab')) {
+                    alert("Fitur ini belum terhubung. (Link masih placeholder)");
+                }
+                return;
+            }
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Custom easing function
+                const startPosition = window.pageYOffset;
+                const targetPosition = targetElement.getBoundingClientRect().top + startPosition;
+                const distance = targetPosition - startPosition;
+                const duration = 1500; // 1.5s duration as requested for "delay/fill" feel
+                let start = null;
+
+                const step = (timestamp) => {
+                    if (!start) start = timestamp;
+                    const progress = timestamp - start;
+                    
+                    // Ease-in-out cubic
+                    const ease = (t) => t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+                    
+                    const scrollY = startPosition + distance * ease(Math.min(progress / duration, 1));
+                    window.scrollTo(0, scrollY);
+
+                    if (progress < duration) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+
+                window.requestAnimationFrame(step);
+            }
+        });
+    });
+
+    // --- Admin / Owner Logic ---
+    const checkAdmin = () => {
+        const isAdmin = localStorage.getItem('eatqon_role') === 'owner';
+        if (isAdmin) {
+            togglePoBtn.style.display = 'block';
+        } else {
+            togglePoBtn.style.display = 'none';
+        }
+    };
+
+    // Secret Trigger: Click Copyright 5 times rapidly
+    let copyrightClicks = 0;
+    const copyrightElement = document.querySelector('.copyright');
+    if (copyrightElement) {
+        copyrightElement.addEventListener('click', () => {
+            copyrightClicks++;
+            if (copyrightClicks === 5) {
+                const password = prompt("Owner Access Code:");
+                if (password === "eatqonadmin") { // Simple client-side check
+                    localStorage.setItem('eatqon_role', 'owner');
+                    alert("Welcome back, Owner!");
+                    checkAdmin();
+                } else {
+                    alert("Access Denied");
+                }
+                copyrightClicks = 0;
+            }
+            // Reset clicks if not reached 5 in short time
+            setTimeout(() => copyrightClicks = 0, 2000); 
+        });
+    }
+
+    // Init
+    checkAdmin(); // Check visibility first
+    updatePOStatus();
+});
