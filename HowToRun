@@ -1,0 +1,25 @@
+# Cara Menjalankan Website Eatqon
+
+Website ini adalah website statis, jadi sangat mudah untuk dijalankan.
+
+## Cara 1: Buka Langsung (Paling Mudah)
+1. Buka File Explorer di komputer Anda.
+2. Masuk ke folder: `d:\web latihan\eatqon`
+3. Cari file bernama `index.html`.
+4. Klik dua kali (double click) file tersebut.
+5. Website akan otomatis terbuka di browser (Chrome, Edge, dll).
+
+## Cara 2: Menggunakan Browser
+1. Buka browser (Chrome, Firefox, dll).
+2. Tekan `Ctrl + O` (Open File).
+3. Arahkan ke `d:\web latihan\eatqon\index.html`.
+
+## Cara 3: Menggunakan Live Server (Untuk Developer)
+Jika Anda memiliki VS Code:
+1. Install ekstensi "Live Server".
+2. Klik kanan pada `index.html` -> "Open with Live Server".
+
+## Fitur Developer
+- Di pojok kanan atas menu (navbar), ada tombol kecil **"⚠ PO Toggle"**.
+- Tombol ini berfungsi untuk simulasi ganti status toko (Buka/Tutup) karena belum ada admin panel backend.
+- Jika status **CLOSED**, form order tidak bisa diklik.
